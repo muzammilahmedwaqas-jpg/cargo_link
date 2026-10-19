@@ -23,8 +23,7 @@ class ShipmentController extends Controller
     public function store(StoreShipmentRequest $request)
     {
         Shipment::create($request->validated() + [
-            'tracking_number' => 'SHP-' . strtoupper(Str::random(8)),
-            'created_by'      => auth()->id(),
+            'created_by' => auth()->id(),
         ]);
         return redirect()->route('admin.shipments.index')->with('success', 'Shipment created.');
     }
