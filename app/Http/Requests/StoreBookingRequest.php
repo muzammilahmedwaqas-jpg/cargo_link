@@ -4,8 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
-use App\Models\Shipment;
 
 class StoreBookingRequest extends FormRequest
 {
