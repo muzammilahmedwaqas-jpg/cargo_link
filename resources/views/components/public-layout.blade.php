@@ -10,10 +10,16 @@
 </head>
 <body class="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 text-gray-800">
     <header class="bg-white shadow-sm">
-        <div class="max-w-4xl mx-auto px-4 py-4">
-            <a href="{{ route('booking.create') }}" class="text-xl font-bold text-blue-700">📦 Cargo Link</a>
-        </div>
-    </header>
+    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="{{ route('booking.create') }}" class="text-xl font-bold text-blue-700">📦 Cargo Link</a>
+        <nav class="flex gap-5 text-sm font-medium">
+            <a href="{{ route('booking.create') }}"
+               class="{{ request()->routeIs('booking.*') ? 'text-blue-700' : 'text-gray-500 hover:text-gray-800' }}">Book</a>
+            <a href="{{ route('tracking.index') }}"
+               class="{{ request()->routeIs('tracking.*') ? 'text-blue-700' : 'text-gray-500 hover:text-gray-800' }}">Track</a>
+        </nav>
+    </div>
+</header>
 
     <main class="max-w-4xl mx-auto px-4 py-10">
         {{ $slot }}
