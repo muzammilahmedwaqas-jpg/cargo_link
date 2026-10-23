@@ -13,10 +13,25 @@
     <nav class="bg-slate-900 text-white">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <a href="{{ route('admin.shipments.index') }}" class="font-bold text-lg">📦 Shipment Admin</a>
-            <a href="{{ route('admin.shipments.index') }}"
-               class="text-sm {{ request()->routeIs('admin.shipments.*') ? 'text-white' : 'text-slate-400' }} hover:text-white">
-                Shipments
-            </a>
+            <div class="flex items-center gap-5 text-sm">
+                <a href="{{ route('admin.shipments.index') }}"
+                   class="{{ request()->routeIs('admin.shipments.*') ? 'text-white' : 'text-slate-400' }} hover:text-white">
+                    Shipments
+                </a>
+                <a href="{{ route('admin.reports.daily') }}"
+                   class="{{ request()->routeIs('admin.reports.*') ? 'text-white' : 'text-slate-400' }} hover:text-white">
+                    Daily Report
+                </a>
+
+                @auth
+                    <span class="text-slate-500">|</span>
+                    <span class="text-slate-300">{{ auth()->user()->name }}</span>
+                    <form method="POST" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <button class="text-slate-400 hover:text-red-400">Log out</button>
+                    </form>
+                @endauth
+            </div>
         </div>
     </nav>
 
