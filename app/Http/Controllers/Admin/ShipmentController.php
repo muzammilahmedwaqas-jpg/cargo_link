@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreShipmentRequest;
 use App\Models\Shipment;
+use App\Enums\ShipmentStatus;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ShipmentController extends Controller
 {
@@ -46,5 +49,22 @@ class ShipmentController extends Controller
     {
         $shipment->delete();
         return redirect()->route('admin.shipments.index')->with('success', 'Shipment deleted.');
+    }
+
+        public function updateStatus(Request $request, Shipment $shipment)
+    {
+        $validated = $request->validate([
+            'status' => ['required', Rule::enum(ShipmentStatus::class)],
+        ]);
+
+        $shipment->status = $validated['status'];
+
+        if (! $shipment->isDirty('status')) {
+            return back()->with('success', 'Status is already ' . $shipment->status->label() . '.');
+        }
+
+        $shipment->save();
+
+        return back()->with('success', 'Status updated to ' . $shipment->status->label() . '.');
     }
 }
