@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Shipment;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\ShipmentStatus;
 
 /**
  * @extends Factory<Shipment>
@@ -27,8 +28,9 @@ class ShipmentFactory extends Factory
             'origin'          => $from,
             'destination'     => $to,
             'weight'          => fake()->randomFloat(2, 0.5, 500),
-            'status'          => fake()->randomElement(\App\Enums\ShipmentStatus::cases()),
-            
+            'status'          => fake()->randomElement(ShipmentStatus::cases()),
+            'created_at' => fake()->dateTimeBetween('-6 days', 'now'),
+            'updated_at' => fn (array $attributes) => $attributes['created_at'],
         ];
     }
 }
